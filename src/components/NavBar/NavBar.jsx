@@ -1,33 +1,73 @@
-import { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
-import { UserContext } from '../../contexts/UserContext';
+export default function NavBar() {
+  const { user, handleSignOut } = useContext(UserContext);
+  const navigate = useNavigate();
 
-const NavBar = () => {
-  const { user, setUser } = useContext(UserContext);
-
-  const handleSignOut = () => {
-    localStorage.removeItem('token');
-    setUser(null);
+  const onSignOut = () => {
+    handleSignOut();
+    navigate("/");
   };
 
   return (
-    <nav>
-      {user ? (
-        <ul>
-          <li>Welcome, {user.username}</li>
-          <li><Link to='/'>Dashboard</Link></li>
-          <li><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
-        </ul>
-      ) : (
-        <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/sign-in'>Sign In</Link></li>
-          <li><Link to='/sign-up'>Sign Up</Link></li>
-        </ul>
-      )}
+    <nav style={styles.nav}>
+      <div style={styles.left}>
+        <Link to="/" style={styles.brand}>Ember</Link>
+      </div>
+
+      <div style={styles.right}>
+        <Link to="/public" style={styles.link}>Public</Link>
+
+
+        {user ? (
+          <>
+            <Link to="/dashboard" style={styles.link}>Dashboard</Link>
+            <Link to="/log-entries/new" style={styles.link}>New</Link>
+            <button style={styles.btn} onClick={onSignOut}>
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/sign-in" style={styles.link}>Sign In</Link>
+            <Link to="/sign-up" style={styles.btn}>Sign Up</Link>
+          </>
+        )}
+      </div>
     </nav>
   );
-};
+}
 
-export default NavBar;
+const styles = {
+  nav: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "14px 18px",
+    borderBottom: "1px solid #e5e7eb",
+    background: "white",
+    position: "sticky",
+    top: 0,
+    zIndex: 10,
+  },
+  brand: {
+    fontWeight: 800,
+    textDecoration: "none",
+    color: "#111827",
+    fontSize: 18,
+  },
+  left: { display: "flex", gap: 12, alignItems: "center" },
+  right: { display: "flex", gap: 12, alignItems: "center" },
+  link: { textDecoration: "none", color: "#111827" },
+  btn: {
+    border: "1px solid #111827",
+    background: "#111827",
+    color: "white",
+    borderRadius: 10,
+    padding: "8px 12px",
+    cursor: "pointer",
+    textDecoration: "none",
+  },
+};

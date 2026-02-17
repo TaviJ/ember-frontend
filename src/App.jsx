@@ -1,27 +1,48 @@
-import { useContext } from 'react';
-import { Routes, Route } from 'react-router';
+import { useContext } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import NavBar from './components/NavBar/NavBar';
-import SignUpForm from './components/SignUpForm/SignUpForm';
-import SignInForm from './components/SignInForm/SignInForm';
-import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
+import NavBar from "./components/NavBar/NavBar";
+import SignUpForm from "./components/SignUpForm/SignUpForm";
+import SignInForm from "./components/SignInForm/SignInForm";
+import Landing from "./components/Landing/Landing";
+import PublicFeed from "./components/PublicFeed/PublicFeed";
+import Dashboard from "./components/Dashboard/Dashboard";
+import LogEntryForm from "./components/EntryForm/EntryForm";
 
-import { UserContext } from './contexts/UserContext';
+import { UserContext } from "./contexts/UserContext";
 
-const App = () => {
+export default function App() {
   const { user } = useContext(UserContext);
-  
+
   return (
     <>
-      <NavBar/>
+      <NavBar />
+
       <Routes>
-        <Route path='/' element={user ? <Dashboard /> : <Landing />} />
-        <Route path='/sign-up' element={<SignUpForm />} />
-        <Route path='/sign-in' element={<SignInForm />} />
+        {/* Landing page (home) */}
+        <Route path="/" element={<Landing />} />
+
+        {/* Public feed */}
+        <Route path="/public" element={<PublicFeed />} />
+
+        {/* Auth */}
+        <Route path="/sign-up" element={<SignUpForm />} />
+        <Route path="/sign-in" element={<SignInForm />} />
+
+        {/* Authed */}
+        <Route
+          path="/dashboard"
+          element={user ? <Dashboard /> : <Navigate to="/dashboard" replace />}
+        />
+        <Route
+          path="/log-entries/new"
+          element={user ? <LogEntryForm mode="new" /> : <Navigate to="/dashboard" replace />}
+        />
+        <Route
+          path="/log-entries/:entryId/edit"
+          element={user ? <LogEntryForm mode="edit" /> : <Navigate to="/dashboard" replace />}
+        />
       </Routes>
     </>
   );
-};
-
-export default App;
+}

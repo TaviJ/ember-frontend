@@ -1,58 +1,26 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/auth`;
+import { request } from "./api";
+import * as tokenService from "./tokenService";
 
-const signUp = async (formData) => {
-  try {
-    const res = await fetch(`${BASE_URL}/sign-up`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+export async function signUp(formData) {
+  const data = await request("/auth/sign-up", {
+    method: "POST",
+    body: JSON.stringify(formData),
+  });
 
-    const data = await res.json();
+  tokenService.setToken(data.token);
+  return data.token;
+}
 
-    if (data.err) {
-      throw new Error(data.err);
-    }
+export async function signIn(formData) {
+  const data = await request("/auth/sign-in", {
+    method: "POST",
+    body: JSON.stringify(formData),
+  });
 
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      return JSON.parse(atob(data.token.split('.')[1])).payload;
-    }
+  tokenService.setToken(data.token);
+  return data.token;
+}
 
-    throw new Error('Invalid response from server');
-  } catch (err) {
-    console.log(err);
-    throw new Error(err);
-  }
-};
-
-const signIn = async (formData) => {
-  try {
-    const res = await fetch(`${BASE_URL}/sign-in`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-
-    if (data.err) {
-      throw new Error(data.err);
-    }
-
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      return JSON.parse(atob(data.token.split('.')[1])).payload;
-    }
-
-    throw new Error('Invalid response from server');
-  } catch (err) {
-    console.log(err);
-    throw new Error(err);
-  }
-};
-
-export {
-  signUp,
-  signIn,
-};
+export function signOut() {
+  tokenService.removeToken();
+}

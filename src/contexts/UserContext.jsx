@@ -1,25 +1,25 @@
-import { createContext, useState } from 'react';
+import { createContext, useState } from "react";
+import * as tokenService from "../services/tokenService";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
-const getUserFromToken = () => {
-  const token = localStorage.getItem('token');
+export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(tokenService.decodeToken());
 
-  if (!token) return null;
+  const handleSetUser = (token) => {
+    tokenService.setToken(token);
+    const decoded = tokenService.decodeToken();
+    setUser(decoded);
+  };
 
-  return JSON.parse(atob(token.split('.')[1])).payload;
-};
-
-function UserProvider({ children }) {
-  const [user, setUser] = useState(getUserFromToken());
-
-  const value = { user, setUser };
+  const handleSignOut = () => {
+    tokenService.removeToken();
+    setUser(null);
+  };
 
   return (
-    <UserContext.Provider value={value}>
+    <UserContext.Provider value={{ user, handleSetUser, handleSignOut }}>
       {children}
     </UserContext.Provider>
   );
 };
-
-export { UserProvider, UserContext };
