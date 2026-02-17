@@ -47,7 +47,7 @@ const styles = {
     fontSize: 12,
     padding: "4px 8px",
     borderRadius: 999,
-    background: "#f3f4f6",
+    background: "#3a3a3aff",
   },
   note: { marginTop: 12, marginBottom: 0, color: "#374151" },
   actions: { display: "flex", gap: 8 },
