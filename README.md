@@ -1,19 +1,67 @@
-# React JWT Auth Template
+# Ember
 
-## About
+A full-stack journaling application built with React, Flask, and PostgreSQL that enables secure user authentication and structured daily logging with public/private visibility controls.
+## Overview
 
-This repo is a React JWT Auth template meant to be paired with a back-end app utilizing JWT tokens.
+Ember is a production-deployed full-stack web application designed to demonstrate secure authentication, RESTful API design, relational data modeling, and cloud deployment practices.
 
-## Getting started
+Users can:
 
-Fork and clone this repository to your local machine.
+- Register and authenticate via JWT
 
-After moving into the cloned directory, run `npm i` to download the dependencies.
+- Create, update, and delete journal entries
 
-Create a `.env` file in the root of the project and add the following:
+- Control visibility (private vs public)
 
-```plaintext
-VITE_BACK_END_SERVER_URL=http://localhost:3000
-```
+- View a global public feed
 
-Start the app with `npm run dev`.
+- Access a personalized dashboard
+
+This project emphasizes clean architecture, production debugging, and real-world deployment workflows.
+
+## Project links
+- **Frontend Repository:**
+  [View Embers frontend repository on Github](https://github.com/TaviJ/ember-frontend)
+- **Backend Repository:**
+  [View Embers backend repository on Github](https://github.com/TaviJ/ember-backend)
+- **Live Link**
+  [Visit the Ember application](https://ember-lifelogs.netlify.app)
+
+
+  
+## Screenshots
+<img width="1710" height="930" alt="Screenshot 2026-02-18 at 7 49 27 AM" src="https://github.com/user-attachments/assets/24dd2b24-4302-471b-88fd-310a3aab4fd5" />
+<img width="1710" height="930" alt="Screenshot 2026-02-18 at 7 51 30 AM" src="https://github.com/user-attachments/assets/27e45ec9-f85d-4ce4-9771-c5fa61b92082" />
+<img width="1710" height="930" alt="Screenshot 2026-02-18 at 7 51 45 AM" src="https://github.com/user-attachments/assets/4a467232-7df4-4abd-b770-ce4ea3b2025d" />
+
+## Technologies Used
+**Frontend**
+- React (Vite)
+- JavaScript 
+- Fetch API
+- Environment-based configuration
+
+  **Backend**
+- Python
+- Flask
+- JWT Authentication
+- bcrypt password hashing
+- PostgreSQL
+
+**Deployment**
+- Heroku
+- Netlify
+
+## Future Improvments 
+- Streaks
+- Mood filtering & search
+- User profile customization
+- Follow system
+- Like and commenting
+
+## Developer
+Tavi Ornelas
+
+Full Stack Software Engineer
+
+GitHub: https://github.com/TaviJ
