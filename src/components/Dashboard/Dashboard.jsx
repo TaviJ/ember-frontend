@@ -126,7 +126,7 @@ const errorText = {
 
 const newBtn = {
   border: "1px solid rgba(255,255,255,0.18)",
-  background: "rgba(255,255,255,0.10)",
+  background: "rgba(0, 0, 0, 0.36)",
   color: "white",
   borderRadius: 12,
   padding: "10px 14px",
