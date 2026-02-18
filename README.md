@@ -53,6 +53,7 @@ This project emphasizes clean architecture, production debugging, and real-world
 - Netlify
 
 ## Future Improvments 
+- Streaks
 - Mood filtering & search
 - User profile customization
 - Follow system
